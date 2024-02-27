@@ -25,6 +25,9 @@ const deleteBanner = require("./banner/deleteBanner");
 const getBanner = require("./banner/getBanner");
 const getBanners = require("./banner/getBanners");
 const addEvent = require("./event/addEvent");
+const getEvent = require("./event/getEvent");
+const getEvents = require("./event/getEvents");
+const updateEvent = require("./event/updateEvent");
 
 module.exports = {
   //auth
@@ -65,4 +68,7 @@ module.exports = {
 
   //event
   addEvent,
+  getEvent,
+  getEvents,
+  updateEvent,
 };

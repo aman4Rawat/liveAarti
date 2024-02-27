@@ -18,6 +18,10 @@ const event = new mongoose.Schema(
     url: { type: String, default: null },
     price: { type: String, required: true }, // participation charge
     users: [{ type: ObjectId, ref: "User" }], //participated users
+    status: {
+      type: String,
+      default: "Active",
+    },
   },
   {
     timestamps: {

@@ -7,6 +7,8 @@ const LiveDarshan = require("./liveDarshan");
 const User = require("./user");
 const Banner = require("./banner");
 const Event = require("./event");
+const Transaction = require("./transaction");
+const Notification = require("./notification");
 
 module.exports = {
   User,
@@ -18,4 +20,6 @@ module.exports = {
   MediaCategory,
   Banner,
   Event,
+  Transaction,
+  Notification,
 };
