@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 
 const mediaCategory = new mongoose.Schema(
   {
-    name: { type: String, trim: true, required: true },
+    titleEnglish: { type: String, trim: true, required: true },
+    titleHindi: { type: String, trim: true, required: true },
     desc: { type: String, default: "" },
     thumbnail: {
       url: { type: String, default: null },

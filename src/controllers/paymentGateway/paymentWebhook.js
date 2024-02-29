@@ -1,5 +1,5 @@
-const { ApiError } = require("../../../errorHandler");
-const { Transaction, Event } = require("../../../models");
+const { ApiError } = require("../../errorHandler");
+const { Transaction, Event } = require("../../models");
 
 const payment_webhook = async (req, res, next) => {
   try {

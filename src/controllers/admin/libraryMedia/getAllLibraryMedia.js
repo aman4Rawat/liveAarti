@@ -1,4 +1,4 @@
-const { LibraryMedia } = require('../../../models');
+const { LibraryMedia } = require("../../../models");
 
 const getAllLibraryMedia = async (req, res, next) => {
   try {
@@ -9,10 +9,13 @@ const getAllLibraryMedia = async (req, res, next) => {
     const total_data = await LibraryMedia.countDocuments();
     const total_page = Math.ceil(total_data / limit);
 
-    const libraryMedia = await LibraryMedia.find().skip(skip).limit(limit).lean();
+    const libraryMedia = await LibraryMedia.find()
+      .skip(skip)
+      .limit(limit)
+      .lean();
     return res.status(200).json({
       status: true,
-      message: 'Media List',
+      message: "Media List",
       data: {
         libraryMedia,
         page,

@@ -1,7 +1,7 @@
 const { isValidObjectId } = require("mongoose");
 const { ApiError } = require("../../../errorHandler");
-const { Transaction } = require("../../../models");
-const razorpay = require("./razorpay");
+const { Transaction, Event } = require("../../../models");
+// const razorpay = require("../../paymentGateway/razorpay");
 
 function generateTransactionId() {
   return `ID-${Math.random() * 5}${Date.now()}`;
@@ -17,26 +17,29 @@ module.exports = async (req, res, next) => {
     const event = await Event.findById(eventId);
     if (!event) throw new ApiError("Provide valid event Id", 400);
 
+    if (event.date) {
+    }
     const transactionId = generateTransactionId();
 
+    // const order = await razorpay.orders.create({
+    //   amount: event.price,
+    //   currency: "INR",
+    //   receipt: `booking-${transactionId}`,
+    //   partial_payment: false,
+    // });
+
+    if (!order) throw new ApiError("Order not created!", 400);
+
     const transactionData = await Transaction.create({
-      orderId: order.id,
+      orderId: transactionId, //order.id,
       userId: req.user._id,
       transactionId,
       transaction_by: "user",
-      amount: order.amount,
+      amount: event.price, //order.amount,
     });
 
     if (!transactionData) throw new ApiError("Please try Again!", 500);
 
-    const order = await razorpay.orders.create({
-      amount: event.price,
-      currency: "INR",
-      receipt: `booking-${transactionId}`,
-      partial_payment: false,
-    });
-
-    if (!order) throw new ApiError("Order not created!", 400);
     // // if (!booking_id) throw new ApiError("Booking ID required", 400);
     // // if (!isValidObjectId(booking_id))
     // //   throw new ApiError("Invalid booking id.", 400);
@@ -86,7 +89,7 @@ module.exports = async (req, res, next) => {
       data: { order },
     });
   } catch (error) {
-    console.log("catech ", error, error.stack);
+    console.log("catch ", error, error.stack);
     next(error);
   }
 };

@@ -50,6 +50,6 @@ userRoute.get("/banners/:id", authenticateUser, getBanner);
 //---------- banners --------
 userRoute.get("/event/:id", authenticateUser, getEvent);
 userRoute.get("/events", authenticateUser, getEvents);
-userRoute.post("participateEvent", authenticateUser, participateEvent);
+userRoute.post("/participateEvent", authenticateUser, participateEvent);
 
 module.exports = userRoute;

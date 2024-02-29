@@ -1,4 +1,4 @@
-const { LiveDarshan } = require('../../../models');
+const { LiveDarshan } = require("../../../models");
 
 const getLiveDarshans = async (req, res, next) => {
   try {
@@ -9,10 +9,13 @@ const getLiveDarshans = async (req, res, next) => {
     const total_data = await LiveDarshan.countDocuments({ isBroken: false });
     const total_page = Math.ceil(total_data / limit);
 
-    const liveDarshans = await LiveDarshan.find({ isBroken: false }).skip(skip).limit(limit).lean();
+    const liveDarshans = await LiveDarshan.find({ isBroken: false })
+      .skip(skip)
+      .limit(limit)
+      .lean();
     return res.status(200).json({
       status: true,
-      message: 'Live Darshan List',
+      message: "Live Darshan List",
       data: {
         liveDarshans,
         page,

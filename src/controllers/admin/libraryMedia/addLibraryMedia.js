@@ -9,8 +9,19 @@ const addLibraryMedia = async (req, res, next) => {
   upload(req, res, async (err) => {
     try {
       if (err) throw new ApiError(err.message, 400);
-      let { title, desc, thumbnail, url, mediaType, lyrics, tags } = req.body;
-      if (!title) throw new ApiError("Title is required", 400);
+      let {
+        titleEnglish,
+        titleHindi,
+        descEnglish,
+        descHindi,
+        thumbnail,
+        url,
+        mediaType,
+        lyrics,
+        tags,
+      } = req.body;
+      if (!titleEnglish) throw new ApiError("English Title is required", 400);
+      // if (!titleHindi) throw new ApiError("Hindi Title is required", 400);
       if (!url) throw new ApiError("URL is required", 400);
       if (mediaType && mediaType !== "audio" && mediaType !== "video")
         throw new ApiError("invalid Media type", 400);
@@ -29,15 +40,22 @@ const addLibraryMedia = async (req, res, next) => {
 
       if (lyrics) {
         try {
+          // lyrics = JSON.parse(JSON.stringify(lyrics));
+          // // lyrics = String(lyrics).replace(new RegExp("\n", "g"), "\n");
+          // lyrics = JSON.parse(lyrics.replace(new RegExp("\r"), "\n"));
+          // // lyrics = JSON.parse(JSON.stringify(lyrics));
           lyrics = JSON.parse(lyrics);
         } catch (error) {
+          console.log("error", error);
           throw new ApiError("Invalid Lyrics: Unable to parse", 400);
         }
       }
 
       const libraryMedia = await LibraryMedia.create({
-        title,
-        desc,
+        titleEnglish,
+        titleHindi,
+        descEnglish,
+        descHindi,
         thumbnail: thumbObj,
         url,
         mediaType,
